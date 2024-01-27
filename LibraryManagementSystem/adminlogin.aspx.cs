@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace LibraryManagementSystem
 {
-    public partial class userlogin : System.Web.UI.Page
+    public partial class adminlogin : System.Web.UI.Page
     {
         string strcon = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
 
@@ -29,13 +29,14 @@ namespace LibraryManagementSystem
                     con.Open();
                 }
 
-                SqlCommand cmd = new SqlCommand("SELECT * from member_master_tbl where member_Id='" + TextBox1.Text.Trim() + "' AND password='"+ TextBox2.Text.Trim() + "';", con);
+                SqlCommand cmd = new SqlCommand("SELECT * from member_master_tbl where username='" + TextBox1.Text.Trim() + "' AND password='" + TextBox2.Text.Trim() + "';", con);
                 SqlDataReader dr = cmd.ExecuteReader();
-                if (dr.HasRows) { 
-                
+                if (dr.HasRows)
+                {
+
                     while (dr.Read())
                     {
-                        Session["username"] = dr.GetValue(8).ToString();
+
                     }
                 }
                 else
@@ -43,7 +44,9 @@ namespace LibraryManagementSystem
                     Response.Write("<script>alert('Invalid Credentials');</script>");
                 }
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "');</script>");
             }
         }
     }
