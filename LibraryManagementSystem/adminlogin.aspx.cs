@@ -37,7 +37,11 @@ namespace LibraryManagementSystem
                     while (dr.Read())
                     {
 
+                        Session["username"] = dr.GetValue(0).ToString();
+                        Session["full_name"] = dr.GetValue(2).ToString();
+                        Session["role"] = "admin";
                     }
+                    Response.Redirect("HomePage.aspx");
                 }
                 else
                 {
